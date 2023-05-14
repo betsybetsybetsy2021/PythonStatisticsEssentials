@@ -53,7 +53,6 @@ df_melted = f_table.melt( id_vars=['country','year'], value_vars=['0-4', '5-14',
 df_melted.dropna(subset=['Cases'], inplace=True)
 df_melted.dropna(subset=['country'], inplace=True)
 df_melted['Gender'] = 'F'
-df_melted.reset_index() # this doesn't appear to be working
 
 # Concatenate files and check that they were added properly
 #print(df_melted.shape)
