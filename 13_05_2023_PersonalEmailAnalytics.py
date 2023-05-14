@@ -1,4 +1,5 @@
-"""This is a Python Statistics Essentials Exercise 1, Personal Email Analytics, started on May 13, 2023"""
+"""This is a Python Statistics Essentials Exercise 1, Personal Email Analytics, started on May 13, 2023.  I don't know why it
+is called email analytics because it isn't about emails."""
 
 #Input 
 # Desired output: table with numberical index column, country code, year, age, sex, cases
@@ -22,7 +23,7 @@ def missing_values(df_name):
 table = pd.read_csv('/home/bringingthesparkle/LinkedInChallenges/tb.csv')
 
 #print(table.head(3))
-print(table.shape)
+#print(table.shape)
 #missing_values(table) #strangely, there are missing values in the country column
 
 #Separate this into gendered tables
@@ -37,8 +38,6 @@ df_melted_m = m_table.melt( id_vars=['country','year'], value_vars=['0-4', '5-14
 df_melted_m.dropna(subset=['Cases'], inplace=True)
 df_melted_m.dropna(subset=['country'], inplace=True)
 df_melted_m['Gender'] = 'M'
-df_melted_m.reset_index()
-print(df_melted_m.head())
 
 # female data table (without independent columns, need to add back)
 female_table = table.iloc[:,12:22]
@@ -59,16 +58,21 @@ df_melted.reset_index() # this doesn't appear to be working
 # Concatenate files and check that they were added properly
 #print(df_melted.shape)
 #print(df_melted_m.shape)
-df = pd.concat([df_melted, df_melted_m]) #This didn't exactly work
+df = pd.concat([df_melted, df_melted_m], axis = 0) #This didn't exactly work
 #print(df.shape) 
 
-# asserting that there are no missing values in the dataframe
+# asserting that there are no missing values in the dataframe (commented out for final product)
 # missing_values(df)
 
-#Sort by country year, age
-df.sort_values(by=['country', 'year', 'age'])
+# reorder columns
+df = df[['country', 'year', 'age', 'Gender', 'Cases']]
+#Sort by country, year, age
+df = df.sort_values(by=['country', 'year', 'age'])
+# reset index
+df.reset_index(drop=True, inplace = True)
 
-print(df.head(5))
+# Final beautiful table (this is the kind of work I enjoy doing and should be doing full-time.)
+print(df.head(10))
 
 
 
